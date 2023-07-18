@@ -1,123 +1,112 @@
 window.addEventListener("load", function () {
-  // Get otp container
-  const OTPContainer = document.querySelector("#otp-input");
+    // Get otp container
+    const OTPContainer = document.querySelector("#otp-input");
 
-  // Focus first input
-  const firstInput = OTPContainer.querySelector("input");
-  firstInput.focus();
+    const OTPValueContainer = document.querySelector("#otp-value");
 
-  // OTP Logic
+    const continueButton = document.querySelector("#submit");
+    continueButton.addEventListener("click", (e) => {
+        updateValue(inputs);
+        alert(OTPValueContainer.value);
+    });
 
-  const isValidInput = (inputValue) => {
-    return Number(inputValue) === 0 && inputValue !== "0" ? false : true;
-  };
+    // Focus first input
+    const firstInput = OTPContainer.querySelector("input");
+    firstInput.focus();
 
-  const setInputValue = (inputElement, inputValue) => {
-    inputElement.value = inputValue;
-  };
+    // OTP Logic
 
-  const resetInput = (inputElement) => {
-    setInputValue(inputElement, "");
-  };
+    const updateValue = (inputs) => {
+        OTPValueContainer.value = Array.from(inputs).reduce((acc, curInput) => acc.concat(curInput.value ? curInput.value : "*"), "");
+    };
 
-  const focusNext = (inputs, curIndex) => {
-    const nextElement =
-      curIndex < inputs.length - 1 ? inputs[curIndex + 1] : inputs[curIndex];
+    const isValidInput = (inputValue) => {
+        return Number(inputValue) === 0 && inputValue !== "0" ? false : true;
+    };
 
-    nextElement.focus();
-    nextElement.select();
-  };
+    const setInputValue = (inputElement, inputValue) => {
+        inputElement.value = inputValue;
+    };
 
-  const focusPrev = (inputs, curIndex) => {
-    const prevElement = curIndex > 0 ? inputs[curIndex - 1] : inputs[curIndex];
+    const resetInput = (inputElement) => {
+        setInputValue(inputElement, "");
+    };
 
-    prevElement.focus();
-    prevElement.select();
-  };
+    const focusNext = (inputs, curIndex) => {
+        const nextElement = curIndex < inputs.length - 1 ? inputs[curIndex + 1] : inputs[curIndex];
 
-  const focusIndex = (inputs, index) => {
-    const element =
-      index < inputs.length - 1 ? inputs[index] : inputs[inputs.length - 1];
+        nextElement.focus();
+        nextElement.select();
+    };
 
-    element.focus();
-    element.select();
-  };
+    const focusPrev = (inputs, curIndex) => {
+        const prevElement = curIndex > 0 ? inputs[curIndex - 1] : inputs[curIndex];
 
-  const handleValidMultiInput = (
-    inputElement,
-    inputValue,
-    curIndex,
-    inputs
-  ) => {
-    const inputLength = inputValue.length;
-    const numInputs = inputs.length;
+        prevElement.focus();
+        prevElement.select();
+    };
 
-    const endIndex = Math.min(curIndex + inputLength - 1, numInputs - 1);
-    const inputsToChange = Array.prototype.slice
-      .call(inputs)
-      .slice(curIndex, endIndex + 1);
-    inputsToChange.forEach((input, index) =>
-      setInputValue(input, inputValue[index])
-    );
-    focusIndex(inputs, endIndex);
-  };
+    const focusIndex = (inputs, index) => {
+        const element = index < inputs.length - 1 ? inputs[index] : inputs[inputs.length - 1];
 
-  const handleInput = (inputElement, inputValue, curIndex, inputs) => {
-    if (!isValidInput(inputValue)) return handleInvalidInput(inputElement);
-    if (inputValue.length === 1)
-      handleValidSingleInput(inputElement, inputValue, curIndex, inputs);
-    else handleValidMultiInput(inputElement, inputValue, curIndex, inputs);
-  };
+        element.focus();
+        element.select();
+    };
 
-  const handleValidSingleInput = (
-    inputElement,
-    inputValue,
-    curIndex,
-    inputs
-  ) => {
-    setInputValue(inputElement, inputValue.slice(-1));
-    focusNext(inputs, curIndex);
-  };
+    const handleValidMultiInput = (inputElement, inputValue, curIndex, inputs) => {
+        const inputLength = inputValue.length;
+        const numInputs = inputs.length;
 
-  const handleInvalidInput = (inputElement) => {
-    resetInput(inputElement);
-  };
+        const endIndex = Math.min(curIndex + inputLength - 1, numInputs - 1);
+        const inputsToChange = Array.from(inputs).slice(curIndex, endIndex + 1);
+        inputsToChange.forEach((input, index) => setInputValue(input, inputValue[index]));
+        focusIndex(inputs, endIndex);
+    };
 
-  const handleKeyDown = (event, key, inputElement, curIndex, inputs) => {
-    if (key === "Delete") {
-      resetInput(inputElement);
-      focusPrev(inputs, curIndex);
-    }
-    if (key === "ArrowLeft") {
-      event.preventDefault();
-      focusPrev(inputs, curIndex);
-    }
-    if (key === "ArrowRight") {
-      event.preventDefault();
-      focusNext(inputs, curIndex);
-    }
-  };
+    const handleInput = (inputElement, inputValue, curIndex, inputs) => {
+        if (!isValidInput(inputValue)) return handleInvalidInput(inputElement);
+        if (inputValue.length === 1) handleValidSingleInput(inputElement, inputValue, curIndex, inputs);
+        else handleValidMultiInput(inputElement, inputValue, curIndex, inputs);
+    };
 
-  const handleDelete = (inputElement, curIndex, inputs) => {};
+    const handleValidSingleInput = (inputElement, inputValue, curIndex, inputs) => {
+        setInputValue(inputElement, inputValue.slice(-1));
+        focusNext(inputs, curIndex);
+    };
 
-  const handleKeyUp = (event, key, inputElement, curIndex, inputs) => {
-    if (key === "Backspace") focusPrev(inputs, curIndex);
-  };
+    const handleInvalidInput = (inputElement) => {
+        resetInput(inputElement);
+    };
 
-  const inputs = OTPContainer.querySelectorAll("input:not(#otp-value)");
-  inputs.forEach((input, index) => {
-    input.addEventListener("input", (e) =>
-      handleInput(input, e.target.value, index, inputs)
-    );
+    const handleKeyDown = (event, key, inputElement, curIndex, inputs) => {
+        if (key === "Delete") {
+            resetInput(inputElement);
+            focusPrev(inputs, curIndex);
+        }
+        if (key === "ArrowLeft") {
+            event.preventDefault();
+            focusPrev(inputs, curIndex);
+        }
+        if (key === "ArrowRight") {
+            event.preventDefault();
+            focusNext(inputs, curIndex);
+        }
+    };
 
-    input.addEventListener("keydown", (e) =>
-      handleKeyDown(e, e.key, input, index, inputs)
-    );
+    const handleDelete = (inputElement, curIndex, inputs) => {};
 
-    input.addEventListener("keyup", (e) =>
-      handleKeyUp(e, e.key, input, index, inputs)
-    );
+    const handleKeyUp = (event, key, inputElement, curIndex, inputs) => {
+        if (key === "Backspace") focusPrev(inputs, curIndex);
+    };
 
-    input.addEventListener("focus", (e) => e.target.select());
-  });
+    const inputs = OTPContainer.querySelectorAll("input:not(#otp-value)");
+    inputs.forEach((input, index) => {
+        input.addEventListener("input", (e) => handleInput(input, e.target.value, index, inputs));
+
+        input.addEventListener("keydown", (e) => handleKeyDown(e, e.key, input, index, inputs));
+
+        input.addEventListener("keyup", (e) => handleKeyUp(e, e.key, input, index, inputs));
+
+        input.addEventListener("focus", (e) => e.target.select());
+    });
 });

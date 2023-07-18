@@ -38,6 +38,21 @@ html {
     row-gap: 12px;
 }
 
+button {
+    background-color: #497e76;
+    padding: 10px 16px 10px 16px;
+    border: none;
+    border-radius: 4px;
+    line-height: 20px;
+    font-weight: 500;
+    color: #ffffff;
+    font-family: "Inter", sans-serif;
+    width: 100%;
+    max-width: 220px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
 #otp-input {
     display: flex;
     column-gap: 8px;
@@ -54,7 +69,7 @@ html {
 }
 
 #otp-input input:focus {
-    border: 1px solid #497E76;
+    border: 1px solid #497e76;
 }
 
 #otp-input input:focus::placeholder {
