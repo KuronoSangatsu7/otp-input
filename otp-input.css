@@ -1,0 +1,71 @@
+body,
+html {
+    height: 100%;
+    width: 100%;
+    background-color: #faf9f6;
+    display: flex;
+}
+
+.font-h2-strong {
+    color: #141414;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 31.68px;
+    font-family: "Lexend", sans-serif;
+}
+
+.font-text-large-1 {
+    color: #8f8f8f;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 20px;
+    font-family: "Inter", sans-serif;
+}
+
+.main-content-container {
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    row-gap: 32px;
+}
+
+.text-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    row-gap: 12px;
+}
+
+#otp-input {
+    display: flex;
+    column-gap: 8px;
+}
+
+#otp-input input {
+    text-align: center;
+    padding: 10px 8px 10px 8px;
+    border: 1px solid #adadad;
+    border-radius: 4px;
+    outline: none;
+    height: 64px;
+    width: 50px;
+}
+
+#otp-input input:focus {
+    border: 1px solid #497E76;
+}
+
+#otp-input input:focus::placeholder {
+    color: transparent;
+}
+
+#otp-input input::-webkit-outer-spin-button,
+#otp-input input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+#otp-input input[type="number"] {
+    -moz-appearance: textfield; /* Firefox */
+}

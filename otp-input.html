@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>OTP Input</title>
+
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Lexend:wght@100;200;300;400;500;600;700;800;900&display=swap"
+            rel="stylesheet"
+        />
+        <link rel="stylesheet" href="./otp-input.css" />
+    </head>
+    <body>
+        <div class="main-content-container">
+            <div class="text-container">
+                <div class="font-h2-strong">OTP Input</div>
+                <div class="font-text-large-1">Enter your one-time password</div>
+            </div>
+
+            <div id="otp-input" class="font-h2-strong">
+                <input class="font-h2-strong" placeholder="_" type="number" step="1" min="0" max="9" autocomplete="no" pattern="\d*" />
+                <input class="font-h2-strong" placeholder="_" type="number" step="1" min="0" max="9" autocomplete="no" pattern="\d*" />
+                <input class="font-h2-strong" placeholder="_" type="number" step="1" min="0" max="9" autocomplete="no" pattern="\d*" />
+                <input class="font-h2-strong" placeholder="_" type="number" step="1" min="0" max="9" autocomplete="no" pattern="\d*" />
+                <input class="font-h2-strong" placeholder="_" type="number" step="1" min="0" max="9" autocomplete="no" pattern="\d*" />
+                <input class="font-h2-strong" placeholder="_" type="number" step="1" min="0" max="9" autocomplete="no" pattern="\d*" />
+                <input id="otp-value" placeholder="_" type="hidden" name="otp" />
+            </div>
+
+            <!-- <button class="primary-button continue-button">Continue</button> -->
+        </div>
+        <script src="./otp-input.js"></script>
+    </body>
+</html>
